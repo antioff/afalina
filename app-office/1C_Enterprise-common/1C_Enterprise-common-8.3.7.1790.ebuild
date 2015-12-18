@@ -17,15 +17,15 @@ elif use amd64 ; then
     MY_LIBDIR="x86_64"
 fi
 
-SRC_URI="x86? ( ${MY_PN}-${MY_PV}.i386.rpm
-	    nls? ( ${MY_PN}-nls-${MY_PV}.i386.rpm ) )
-	amd64? ( ${MY_PN}-${MY_PV}.x86_64.rpm
-	    nls? ( ${MY_PN}-nls-${MY_PV}.x86_64.rpm ) )"
+SRC_URI="x86?  ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/${MY_PN}-${MY_PV}.i386.rpm
+	nls?   ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/${MY_PN}-nls-${MY_PV}.i386.rpm ) )
+	amd64? ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/${MY_PN}-${MY_PV}.x86_64.rpm
+	nls?   ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/${MY_PN}-nls-${MY_PV}.x86_64.rpm ) )"
 
 SLOT="$(get_version_component_range 1-2)"
 LICENSE="1CEnterprise_en"
 KEYWORDS=""
-RESTRICT="fetch strip"
+#RESTRICT="fetch strip"
 IUSE="+nls"
 
 RDEPEND=">=sys-libs/glibc-2.3

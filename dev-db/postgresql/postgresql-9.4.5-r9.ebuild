@@ -1,10 +1,10 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/postgresql/postgresql-9.2.10.ebuild,v 1.10 2015/02/24 10:56:52 ago Exp $
+# $Id$
 
 EAPI="5"
 
-PYTHON_COMPAT=( python{2_{6,7},3_{2,3,4}} )
+PYTHON_COMPAT=( python{2_7,3_4} )
 
 inherit eutils flag-o-matic linux-info multilib pam prefix python-single-r1 \
 		systemd user versionator
@@ -21,7 +21,7 @@ HOMEPAGE="http://www.postgresql.org/"
 
 LINGUAS="af cs de en es fa fr hr hu it ko nb pl pt_BR ro ru sk sl sv tr
 		 zh_CN zh_TW"
-IUSE="1c doc kerberos kernel_linux ldap nls pam perl pg_legacytimestamp python
+IUSE="doc kerberos kernel_linux ldap libressl nls pam perl -pg_legacytimestamp python
 	  +readline selinux +server ssl static-libs tcl threads uuid xml zlib"
 
 for lingua in ${LINGUAS}; do
@@ -39,7 +39,7 @@ wanted_languages() {
 }
 
 CDEPEND="
->=app-admin/eselect-postgresql-1.2.0
+>=app-eselect/eselect-postgresql-1.2.0
 sys-apps/less
 virtual/libintl
 kerberos? ( virtual/krb5 )
@@ -47,13 +47,38 @@ ldap? ( net-nds/openldap )
 pam? ( virtual/pam )
 perl? ( >=dev-lang/perl-5.8 )
 python? ( ${PYTHON_DEPS} )
-readline? ( sys-libs/readline )
-ssl? ( >=dev-libs/openssl-0.9.6-r1 )
-tcl? ( >=dev-lang/tcl-8 )
-uuid? ( dev-libs/ossp-uuid )
+readline? ( sys-libs/readline:0= )
+ssl? (
+	!libressl? ( >=dev-libs/openssl-0.9.6-r1:0= )
+	libressl? ( dev-libs/libressl:= )
+)
+tcl? ( >=dev-lang/tcl-8:0= )
 xml? ( dev-libs/libxml2 dev-libs/libxslt )
 zlib? ( sys-libs/zlib )
 "
+
+# uuid flags -- depend on sys-apps/util-linux for Linux libcs, or if no
+# supported libc in use depend on dev-libs/ossp-uuid. For BSD systems,
+# the libc includes UUID functions.
+UTIL_LINUX_LIBC=( elibc_{glibc,uclibc,musl} )
+BSD_LIBC=( elibc_{Free,Net,Open}BSD )
+
+nest_usedep() {
+	local front back
+	while [[ ${#} -gt 1 ]]; do
+		front+="${1}? ( "
+		back+=" )"
+		shift
+	done
+	echo "${front}${1}${back}"
+}
+
+IUSE+=" ${UTIL_LINUX_LIBC[@]} ${BSD_LIBC[@]}"
+CDEPEND+="
+uuid? (
+	${UTIL_LINUX_LIBC[@]/%/? ( sys-apps/util-linux )}
+	$(nest_usedep ${UTIL_LINUX_LIBC[@]/#/!} ${BSD_LIBC[@]/#/!} dev-libs/ossp-uuid)
+)"
 
 DEPEND="${CDEPEND}
 !!<sys-apps/sandbox-2.0
@@ -74,7 +99,7 @@ pkg_setup() {
 	use server && CONFIG_CHECK="~SYSVIPC" linux-info_pkg_setup
 
 	enewgroup postgres 70
-	enewuser postgres 70 /bin/bash /var/lib/postgresql postgres
+	enewuser postgres 70 /bin/sh /var/lib/postgresql postgres
 
 	use python && python-single-r1_pkg_setup
 }
@@ -89,18 +114,21 @@ src_prepare() {
 
 	use server || epatch "${FILESDIR}/${PN}-${SLOT}-no-server.patch"
 
+	# Fix bug 486556 where the server would crash at start up because of
+	# an infinite loop caused by a self-referencing symlink.
+	epatch "${FILESDIR}/postgresql-9.2-9.4-tz-dir-overflow.patch"
+
 	if use pam ; then
 		sed -e "s/\(#define PGSQL_PAM_SERVICE \"postgresql\)/\1-${SLOT}/" \
 			-i src/backend/libpq/auth.c || \
 			die 'PGSQL_PAM_SERVICE rename failed.'
 	fi
-	
-	epatch "${FILESDIR}/pg1c.patch"
-#	epatch "${FILESDIR}/postgresql-1c-9.2.patch" 
-	epatch "${FILESDIR}/applock-1c-9.2.patch" 
-	epatch "${FILESDIR}/online_analyze.patch" 
-	epatch "${FILESDIR}/plantuner.patch"
-
+	epatch "${FILESDIR}/1C_FULL_94_0.23"
+	epatch "${FILESDIR}/postgresql-1c-9.4.patch"
+	epatch "${FILESDIR}/applock-1c-9.4.patch"
+	epatch "${FILESDIR}/online_analyze-9_4.patch"
+	epatch "${FILESDIR}/plantuner-9_4.patch"
+	epatch_user
 }
 
 src_configure() {
@@ -115,10 +143,21 @@ src_configure() {
 
 	local PO="${EPREFIX%/}"
 
+	local i uuid_config=""
+	if use uuid; then
+		for i in ${UTIL_LINUX_LIBC[@]}; do
+			use ${i} && uuid_config="--with-uuid=e2fs"
+		done
+		for i in ${BSD_LIBC[@]}; do
+			use ${i} && uuid_config="--with-uuid=bsd"
+		done
+		[[ -z $uuid_config ]] && uuid_config="--with-uuid=ossp"
+	fi
+
 	econf \
 		--prefix="${PO}/usr/$(get_libdir)/postgresql-${SLOT}" \
 		--datadir="${PO}/usr/share/postgresql-${SLOT}" \
-		--docdir="${PO}/usr/share/doc/postgresql-${SLOT}" \
+		--docdir="${PO}/usr/share/doc/${PF}" \
 		--includedir="${PO}/usr/include/postgresql-${SLOT}" \
 		--mandir="${PO}/usr/share/postgresql-${SLOT}/man" \
 		--sysconfdir="${PO}/etc/postgresql-${SLOT}" \
@@ -126,7 +165,6 @@ src_configure() {
 		$(use_enable !pg_legacytimestamp integer-datetimes) \
 		$(use_enable threads thread-safety) \
 		$(use_with kerberos gssapi) \
-		$(use_with kerberos krb5) \
 		$(use_with ldap) \
 		$(use_with pam) \
 		$(use_with perl) \
@@ -134,7 +172,7 @@ src_configure() {
 		$(use_with readline) \
 		$(use_with ssl openssl) \
 		$(use_with tcl) \
-		$(use_with uuid ossp-uuid) \
+		${uuid_config} \
 		$(use_with xml libxml) \
 		$(use_with xml libxslt) \
 		$(use_with zlib) \
@@ -188,13 +226,11 @@ src_install() {
 			"${FILESDIR}/${PN}.confd" | newconfd - ${PN}-${SLOT}
 
 		sed -e "s|@SLOT@|${SLOT}|g" -e "s|@LIBDIR@|$(get_libdir)|g" \
-			"${FILESDIR}/${PN}.init" | newinitd - ${PN}-${SLOT}
+			"${FILESDIR}/${PN}.init-9.3" | newinitd - ${PN}-${SLOT}
 
 		sed -e "s|@SLOT@|${SLOT}|g" -e "s|@LIBDIR@|$(get_libdir)|g" \
 			"${FILESDIR}/${PN}.service" | \
 			systemd_newunit - ${PN}-${SLOT}.service
-
-		systemd_newtmpfilesd "${FILESDIR}"/${PN}.tmpfilesd ${PN}-${SLOT}.conf
 
 		newbin "${FILESDIR}"/${PN}-check-db-dir ${PN}-${SLOT}-check-db-dir
 
@@ -212,6 +248,14 @@ pkg_postinst() {
 
 	elog "If you need a global psqlrc-file, you can place it in:"
 	elog "    ${EROOT%/}/etc/postgresql-${SLOT}/"
+
+	if [[ -z ${REPLACING_VERSIONS} ]] ; then
+		elog
+		elog "It looks like this is your first time installing PostgreSQL. Run the"
+		elog "following command in all active shells to pick up changes to the default"
+		elog "environemnt:"
+		elog "    source /etc/profile"
+	fi
 
 	if use server ; then
 		elog
@@ -237,7 +281,7 @@ pkg_postinst() {
 pkg_prerm() {
 	if use server && [[ -z ${REPLACED_BY_VERSION} ]] ; then
 		ewarn "Have you dumped and/or migrated the ${SLOT} database cluster?"
-		ewarn "\thttps://wiki.gentoo.org/wiki/PostgreSQL#doc_chap5"
+		ewarn "\thttps://wiki.gentoo.org/wiki/PostgreSQL/QuickStart#Migrating_PostgreSQL"
 
 		ebegin "Resuming removal in 10 seconds (Control-C to cancel)"
 		sleep 10

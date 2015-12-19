@@ -123,7 +123,7 @@ src_prepare() {
 			-i src/backend/libpq/auth.c || \
 			die 'PGSQL_PAM_SERVICE rename failed.'
 	fi
-	epatch "${FILESDIR}/1C_FULL_94_0.23"
+	epatch "${FILESDIR}/1c_full_94-0.23"
 	epatch "${FILESDIR}/postgresql-1c-9.4.patch"
 	epatch "${FILESDIR}/applock-1c-9.4.patch"
 	epatch "${FILESDIR}/online_analyze-9_4.patch"

@@ -27,12 +27,12 @@ FORCE_TIMEOUT=2
 # -B is the number of shared buffers and has to be at least 2x the value for -N
 # Please read the man-page to postmaster for more options. Many of these
 # options can be set directly in the configuration file.
-PGOPTS="-h 0.0.0.0"
+#PGOPTS="-N 512 -B 1024"
 
 # Pass extra environment variables. If you have to export environment variables
 # for the database process, this can be done here.
 # Don't forget to escape quotes.
-#PG_EXTRA_ENV="LC_ALL=\"ru_RU.UTF-8\""
+#PG_EXTRA_ENV="PGPASSFILE=\"/path/to/.pgpass\""
 
 ##############################################################################
 #
@@ -55,4 +55,4 @@ DATA_DIR="/var/lib/postgresql/@SLOT@/data"
 
 # Additional options to pass to initdb.
 # See `man initdb' for available options.
-PG_INITDB_OPTS="--encoding=UTF8 --locale=ru_RU.UTF-8"
+PG_INITDB_OPTS="--encoding=UTF8"

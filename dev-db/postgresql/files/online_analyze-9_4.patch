@@ -1,6 +1,6 @@
 diff -urN ../postgresql-9.4.0.orig/contrib/online_analyze/COPYRIGHT ./contrib/online_analyze/COPYRIGHT
---- ../postgresql-9.4.0.orig/contrib/online_analyze/COPYRIGHT	1970-01-01 03:00:00.000000000 +0300
-+++ ./contrib/online_analyze/COPYRIGHT	2014-11-21 16:17:08.000000000 +0300
+--- contrib/online_analyze/COPYRIGHT	1970-01-01 03:00:00.000000000 +0300
++++ contrib/online_analyze/COPYRIGHT	2014-11-21 16:17:08.000000000 +0300
 @@ -0,0 +1,29 @@
 +/*
 + * Copyright (c) 2011 Teodor Sigaev <teodor@sigaev.ru>
@@ -32,8 +32,8 @@ diff -urN ../postgresql-9.4.0.orig/contrib/online_analyze/COPYRIGHT ./contrib/on
 + */
 +
 diff -urN ../postgresql-9.4.0.orig/contrib/online_analyze/Makefile ./contrib/online_analyze/Makefile
---- ../postgresql-9.4.0.orig/contrib/online_analyze/Makefile	1970-01-01 03:00:00.000000000 +0300
-+++ ./contrib/online_analyze/Makefile	2014-11-21 16:17:08.000000000 +0300
+--- contrib/online_analyze/Makefile	1970-01-01 03:00:00.000000000 +0300
++++ contrib/online_analyze/Makefile	2014-11-21 16:17:08.000000000 +0300
 @@ -0,0 +1,16 @@
 +MODULE_big = online_analyze
 +OBJS = online_analyze.o     
@@ -52,8 +52,8 @@ diff -urN ../postgresql-9.4.0.orig/contrib/online_analyze/Makefile ./contrib/onl
 +endif
 +
 diff -urN ../postgresql-9.4.0.orig/contrib/online_analyze/online_analyze.c ./contrib/online_analyze/online_analyze.c
---- ../postgresql-9.4.0.orig/contrib/online_analyze/online_analyze.c	1970-01-01 03:00:00.000000000 +0300
-+++ ./contrib/online_analyze/online_analyze.c	2014-11-21 16:17:08.000000000 +0300
+--- contrib/online_analyze/online_analyze.c	1970-01-01 03:00:00.000000000 +0300
++++ contrib/online_analyze/online_analyze.c	2014-11-21 16:17:08.000000000 +0300
 @@ -0,0 +1,723 @@
 +/*
 + * Copyright (c) 2011 Teodor Sigaev <teodor@sigaev.ru>
@@ -779,8 +779,8 @@ diff -urN ../postgresql-9.4.0.orig/contrib/online_analyze/online_analyze.c ./con
 +	excludeTables.nTables = includeTables.nTables = 0;
 +}
 diff -urN ../postgresql-9.4.0.orig/contrib/online_analyze/README.online_analyze ./contrib/online_analyze/README.online_analyze
---- ../postgresql-9.4.0.orig/contrib/online_analyze/README.online_analyze	1970-01-01 03:00:00.000000000 +0300
-+++ ./contrib/online_analyze/README.online_analyze	2014-11-21 16:17:08.000000000 +0300
+--- contrib/online_analyze/README.online_analyze	1970-01-01 03:00:00.000000000 +0300
++++ contrib/online_analyze/README.online_analyze	2014-11-21 16:17:08.000000000 +0300
 @@ -0,0 +1,36 @@
 +Module makes an analyze call immediately after INSERT/UPDATE/DELETE/SELECT INTO
 +for affected table(s).

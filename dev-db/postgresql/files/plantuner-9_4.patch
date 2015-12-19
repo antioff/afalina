@@ -1,6 +1,6 @@
 diff -urN ../postgresql-9.2.0.orig/contrib/plantuner\COPYRIGHT ./contrib/plantuner/COPYRIGHT
---- ../postgresql-9.2.0.orig/contrib/plantuner/COPYRIGHT	Thu Jan 01 04:00:00 1970
-+++ ./contrib/plantuner/COPYRIGHT	Mon Sep 17 20:00:32 2012
+--- contrib/plantuner/COPYRIGHT	Thu Jan 01 04:00:00 1970
++++ contrib/plantuner/COPYRIGHT	Mon Sep 17 20:00:32 2012
 @@ -0,0 +1,29 @@
 +/*
 + * Copyright (c) 2009 Teodor Sigaev <teodor@sigaev.ru>
@@ -32,8 +32,8 @@ diff -urN ../postgresql-9.2.0.orig/contrib/plantuner\COPYRIGHT ./contrib/plantun
 + */
 +
 diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/expected/plantuner.out ./contrib/plantuner/expected/plantuner.out
---- ../postgresql-9.2.0.orig/contrib/plantuner/expected/plantuner.out	Thu Jan 01 04:00:00 1970
-+++ ./contrib/plantuner/expected/plantuner.out	Mon Sep 17 20:00:32 2012
+--- contrib/plantuner/expected/plantuner.out	Thu Jan 01 04:00:00 1970
++++ contrib/plantuner/expected/plantuner.out	Mon Sep 17 20:00:32 2012
 @@ -0,0 +1,49 @@
 +LOAD 'plantuner';
 +SHOW	plantuner.disable_index;
@@ -85,8 +85,8 @@ diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/expected/plantuner.out ./co
 +(0 rows)
 +
 diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/Makefile ./contrib/plantuner/Makefile
---- ../postgresql-9.2.0.orig/contrib/plantuner/Makefile	Thu Jan 01 04:00:00 1970
-+++ ./contrib/plantuner/Makefile	Mon Sep 17 20:00:32 2012
+--- contrib/plantuner/Makefile	Thu Jan 01 04:00:00 1970
++++ contrib/plantuner/Makefile	Mon Sep 17 20:00:32 2012
 @@ -0,0 +1,15 @@
 +MODULE_big = plantuner
 +DOCS = README.plantuner
@@ -104,8 +104,8 @@ diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/Makefile ./contrib/plantune
 +include $(top_srcdir)/contrib/contrib-global.mk
 +endif
 diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/plantuner.c ./contrib/plantuner/plantuner.c
---- ../postgresql-9.2.0.orig/contrib/plantuner/plantuner.c	Thu Jan 01 04:00:00 1970
-+++ ./contrib/plantuner/plantuner.c	Mon Sep 17 20:00:32 2012
+--- contrib/plantuner/plantuner.c	Thu Jan 01 04:00:00 1970
++++ contrib/plantuner/plantuner.c	Mon Sep 17 20:00:32 2012
 @@ -0,0 +1,378 @@
 +/*
 + * Copyright (c) 2009 Teodor Sigaev <teodor@sigaev.ru>
@@ -486,8 +486,8 @@ diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/plantuner.c ./contrib/plant
 +	}
 +}
 diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/README.plantuner ./contrib/plantuner/README.plantuner
---- ../postgresql-9.2.0.orig/contrib/plantuner/README.plantuner	Thu Jan 01 04:00:00 1970
-+++ ./contrib/plantuner/README.plantuner	Mon Sep 17 20:00:32 2012
+--- contrib/plantuner/README.plantuner	Thu Jan 01 04:00:00 1970
++++ contrib/plantuner/README.plantuner	Mon Sep 17 20:00:32 2012
 @@ -0,0 +1,96 @@
 +Plantuner - enable planner hints
 +
@@ -586,8 +586,8 @@ diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/README.plantuner ./contrib/
 +(4 rows)
 +
 diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/results/plantuner.out ./contrib/plantuner/results/plantuner.out
---- ../postgresql-9.2.0.orig/contrib/plantuner/results/plantuner.out	Thu Jan 01 04:00:00 1970
-+++ ./contrib/plantuner/results/plantuner.out	Tue Sep 18 11:59:30 2012
+--- contrib/plantuner/results/plantuner.out	Thu Jan 01 04:00:00 1970
++++ contrib/plantuner/results/plantuner.out	Tue Sep 18 11:59:30 2012
 @@ -0,0 +1,49 @@
 +LOAD 'plantuner';
 +SHOW	plantuner.disable_index;
@@ -639,8 +639,8 @@ diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/results/plantuner.out ./con
 +(0 rows)
 +
 diff -urN ../postgresql-9.2.0.orig/contrib/plantuner/sql/plantuner.sql ./contrib/plantuner/sql/plantuner.sql
---- ../postgresql-9.2.0.orig/contrib/plantuner/sql/plantuner.sql	Thu Jan 01 04:00:00 1970
-+++ ./contrib/plantuner/sql/plantuner.sql	Mon Sep 17 20:00:32 2012
+--- contrib/plantuner/sql/plantuner.sql	Thu Jan 01 04:00:00 1970
++++ contrib/plantuner/sql/plantuner.sql	Mon Sep 17 20:00:32 2012
 @@ -0,0 +1,27 @@
 +LOAD 'plantuner';
 +

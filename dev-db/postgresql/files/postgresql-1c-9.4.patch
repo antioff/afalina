@@ -6,7 +6,7 @@
  		vacuumlo	\
 -		worker_spi
 +		worker_spi      \
-+                mchar       	\ 
++		mchar       	\
 +		fulleq          \
 +		fasttrun	\
 +		online_analyze	\

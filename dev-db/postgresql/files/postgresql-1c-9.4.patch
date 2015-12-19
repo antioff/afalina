@@ -1,5 +1,5 @@
---- ../postgresql-9.3.0.orig/contrib/Makefile	2013-09-03 00:53:18.000000000 +0400
-+++ ./contrib/Makefile	2013-09-16 10:49:00.535579000 +0400
+--- contrib/Makefile	2013-09-03 00:53:18.000000000 +0400
++++ contrib/Makefile	2013-09-16 10:49:00.535579000 +0400
 @@ -53,7 +53,12 @@
  		tsearch2	\
  		unaccent	\
@@ -14,8 +14,8 @@
  
  ifeq ($(with_openssl),yes)
  SUBDIRS += sslinfo
---- ../postgresql-9.3.0.orig/src/backend/libpq/pg_hba.conf.sample	Thu Aug 23 22:06:50 2012 UTC
-+++ ./src/backend/libpq/pg_hba.conf.sample	Mon Sep 10 07:25:38 2012 UTC
+--- src/backend/libpq/pg_hba.conf.sample	Thu Aug 23 22:06:50 2012 UTC
++++ src/backend/libpq/pg_hba.conf.sample	Mon Sep 10 07:25:38 2012 UTC
 @@ -79,11 +79,12 @@
  @remove-line-for-nolocal@# "local" is for Unix domain socket connections only
  @remove-line-for-nolocal@local   all             all                                     @authmethodlocal@
@@ -34,8 +34,8 @@
 +#host    replication     @default_username@        127.0.0.1/32            @authmethodhost@
 +#host    replication     @default_username@        ::1/128                 @authmethodhost@
 
---- ../postgresql-9.3.0.orig/src/backend/utils/misc/postgresql.conf.sample	Thu Sep 6 21:26:18 2012 UTC
-+++ ./src/backend/utils/misc/postgresql.conf.sample	Tue Sep 11 13:37:37 2012 UTC
+--- src/backend/utils/misc/postgresql.conf.sample	Thu Sep 6 21:26:18 2012 UTC
++++ src/backend/utils/misc/postgresql.conf.sample	Tue Sep 11 13:37:37 2012 UTC
 @@ -56,7 +56,7 @@
  
  # - Connection Settings -

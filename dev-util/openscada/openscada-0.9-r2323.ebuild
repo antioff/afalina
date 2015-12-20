@@ -69,9 +69,9 @@ pkg_setup() {
 }
 
 src_unpack() {
-	unpack ${PF}.tar.xz
-	cd "${WORKDIR}/${PF}"
-	unpack ${PN}-res-${PVR}.tar.xz
+	unpack ${P}+${PR}.tar.xz
+	cd "${WORKDIR}/${P}+${PR}"
+	unpack ${PN}-res-${PV}+${PR}.tar.xz
 }
 
 src_configure() {

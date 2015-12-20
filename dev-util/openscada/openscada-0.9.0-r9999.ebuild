@@ -22,8 +22,8 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="dbase sqlite mysql firebird postgresql sockets +ssl +serial +http +selfsystem +userprotocol 
- bfn +blockcalc +daqgate dcon icp_das +system +javalikecalc +logiclev +modbus opc_ua siemens snmp +soundcard +fsarch dbarch
+IUSE="dbase +sqlite mysql firebird postgresql sockets +ssl +serial +http +selfsystem +userprotocol 
+ +bfn +blockcalc +daqgate dcon icp_das +system +javalikecalc +logiclev +modbus opc_ua siemens snmp +soundcard +fsarch +dbarch
  +vcaengine +vision +qtstarter +qtcfg webcfg webcfgd +webvision +webuser +systemtest +flibcomplex1 +flibmath +flibsys +demo +doc"
 
 DEPEND="sys-devel/gettext

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "http://www.gentoo.org/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name>afalina</name>
+    <description lang="en">Progs for small office</description>
+    <homepage>https://github.com/antiof/afalina</homepage>
+    <owner type="person">
+      <email>zamilov@gmail.com</email>
+      <name>A.Zamilov</name>
+    </owner>
+    <source type="git">git@github.com:antioff/afalina.git</source>
+  </repo>
+</repositories>

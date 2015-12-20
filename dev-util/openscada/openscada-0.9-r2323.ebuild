@@ -145,7 +145,7 @@ src_install() {
 
 	insinto /etc
 	doins data/ModelsDB/Boiler/oscada_Boiler.xml
-	dobin data/ModelsDB/Boiler/openscada_Boiler
+#	dobin data/ModelsDB/Boiler/openscada_Boiler
 	insinto /var/spool/openscada/Boiler
 	doins data/ModelsDB/Boiler/*.db
 
@@ -162,7 +162,7 @@ src_install() {
 
 	insinto /etc
 	doins data/ModelsDB/Boiler/oscada_Boiler.xml
-	dobin data/ModelsDB/Boiler/openscada_Boiler
+#	dobin data/ModelsDB/Boiler/openscada_Boiler
 	insinto /var/spool/openscada/Boiler
 	doins data/ModelsDB/Boiler/*.db
 

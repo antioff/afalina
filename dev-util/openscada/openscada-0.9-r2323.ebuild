@@ -28,6 +28,8 @@ IUSE="dbase +sqlite mysql firebird postgresql sockets +ssl +serial +http +selfsy
 
 DEPEND="sys-devel/gettext
 	dev-libs/expat
+	kde-apps/kdialog
+	dev-util/dialog
 	media-libs/gd[fontconfig,jpeg,truetype,png,-xpm]
 	dev-libs/libpcre
 	sci-libs/fftw:3.0

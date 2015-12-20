@@ -13,9 +13,9 @@ inherit eutils autotools qt4-r2 subversion
 
 DESCRIPTION="Open SCADA system"
 HOMEPAGE="http://oscada.org"
-#SRC_URI="ftp://ftp.oscada.org/OpenSCADA/Work/${PF}.tar.xz
-#ftp://ftp.oscada.org/OpenSCADA/Work/${PN}-res-${PVR}.tar.xz"
-ESVN_REPO_URI="http://oscada.org/svn/trunk/OpenSCADA/"
+SRC_URI="ftp://ftp.oscada.org/OpenSCADA/Work/${P}+${PR}.tar.xz
+ftp://ftp.oscada.org/OpenSCADA/Work/${PN}-res-${PR}.tar.xz"
+#ESVN_REPO_URI="http://oscada.org/svn/trunk/OpenSCADA/"
 
 
 LICENSE="GPL-2"

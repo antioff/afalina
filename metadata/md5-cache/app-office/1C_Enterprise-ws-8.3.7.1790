@@ -1,0 +1,12 @@
+DEFINED_PHASES=install postinst unpack
+DEPEND=~app-office/1C_Enterprise-common-8.3.7.1790:8.3 >=app-arch/rpm2targz-9.0.0.3g
+DESCRIPTION=Web component of 1C ERP system
+EAPI=5
+HOMEPAGE=http://v8.1c.ru/
+IUSE=+nls pax_kernel
+LICENSE=1CEnterprise_en
+RDEPEND=~app-office/1C_Enterprise-common-8.3.7.1790:8.3
+SLOT=8.3
+SRC_URI=x86? ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/1C_Enterprise83-ws-8.3.7-1790.i386.rpm nls? ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/1C_Enterprise83-ws-nls-8.3.7-1790.i386.rpm ) ) amd64? ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/1C_Enterprise83-ws-8.3.7-1790.x86_64.rpm nls? ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/1C_Enterprise83-ws-nls-8.3.7-1790.x86_64.rpm ) )
+_eclasses_=eutils	d9bd2ddd85a58e470b49ca997e255a4c	multilib	3972ca401cf7dbb430df9995f5d8d580	rpm	514a1840ee796656311a029ea952faa9	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=eb72f8b85f8e29878346e879b6041109

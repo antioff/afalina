@@ -12,8 +12,8 @@ HOMEPAGE="http://v8.1c.ru/"
 MY_PV="$(replace_version_separator 3 '-' )"
 MY_PN="1C_Enterprise83-crs"
 
-SRC_URI="x86? ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/${MY_PN}-${MY_PV}.i386.rpm
-	nls?  ( ftp://gate.afalina-crew.ru/overlay/distfiles/1C/1C_Enterprise83-common-nls-${MY_PV}.i386.rpm ) )"
+SRC_URI="x86? ( ftp://gate.afalina-crew.ru/distfiles/1C/${MY_PN}-${MY_PV}.i386.rpm
+	nls?  ( ftp://gate.afalina-crew.ru/distfiles/1C/1C_Enterprise83-common-nls-${MY_PV}.i386.rpm ) )"
 
 SLOT="$(get_version_component_range 1-2)"
 LICENSE="1CEnterprise_en"
